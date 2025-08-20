@@ -43,7 +43,10 @@ El usuario puede seleccionar un **origen** y un **destino**, trazar una ruta ent
     ```bash
     npm start
 
-4. Abre el navegador en:
+4. Configurar keys en el archivo .env:
+    ORS_API_KEY (https://api.openrouteservice.org/v2)
+
+5. Abre el navegador en:
     http://localhost:3000
 
 

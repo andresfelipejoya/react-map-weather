@@ -2,6 +2,12 @@ import { useState } from "react";
 import { DailyGroupedForecast, HourlyForecast } from "@/domains/weather/application/services/group-forecast-by-date";
 import { NewWeatherData } from "../application/use-cases/fetch-forecast-by-locations";
 
+const colorMap: Record<string, string> = {
+    red: "text-red-500 border-red-500",
+    yellow: "text-yellow-500 border-yellow-500",
+    blue: "text-blue-500 border-blue-500",
+};
+
 const CardWeather = ({ weatherData }: { weatherData: HourlyForecast }) => {
     if (!weatherData) return null;
     return (
@@ -62,8 +68,8 @@ const ForecastList = ({
     </div>
 );
 
-const Badge = ({ text, color }: { text: string, color: string }) => (
-    <p className={`inline-flex items-center px-2 py-1 text-xs font-medium text-${color}-800 border border-${color}-500 bg-white-500 rounded-full`}>
+const Badge = ({ text, color }: { text: string; color: keyof typeof colorMap }) => (
+    <p className={`inline-flex items-center px-2 py-1 text-xs font-medium ${colorMap[color]} border bg-white rounded-full`}>
         {text}
     </p>
 );
@@ -87,7 +93,7 @@ export default function WeatherPanel({
     nameOrigin?: string;
     nameDestination?: string;
 }) {
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
 
     const togglePanel = () => setExpanded((prev) => !prev);
 
@@ -108,7 +114,7 @@ export default function WeatherPanel({
             </div>
 
             {/* Route Forecast */}
-            <h1 className="text-lg font-bold mb-2">Weather along the route</h1>
+            <h1 className="text-lg font-bold mb-2">Weather along the route for today</h1>
             {routeWeather && routeWeather?.length > 0 ? (
                 <ForecastList forecasts={routeWeather} timeLine={true} />
             ) : (
