@@ -10,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         clean: true,
-        publicPath: '/react-map-weather/',
+        publicPath: '/react-map-weather/', // 👈 importante para GitHub Pages
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -28,9 +28,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                use: [
-                    'babel-loader',
-                ],
+                use: ['babel-loader'],
                 exclude: /node_modules/,
             },
             {
@@ -51,8 +49,17 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: 'public', to: '.' },
-                { from: 'public/index.html', to: '404.html' }, // 👈 Copia index.html como 404.html
+                // Copia todo menos index.html
+                {
+                    from: 'public',
+                    to: '.',
+                    globOptions: { ignore: ['**/index.html'] }
+                },
+                // Copia index.html como 404.html para GitHub Pages
+                {
+                    from: 'public/index.html',
+                    to: '404.html'
+                },
             ],
         }),
         new webpack.DefinePlugin({
@@ -61,6 +68,6 @@ module.exports = {
             'process.env.OWM_API_URL': JSON.stringify(process.env.OWM_API_URL),
             'process.env.ORS_API_KEY': JSON.stringify(process.env.ORS_API_KEY),
             'process.env.OWM_API_KEY': JSON.stringify(process.env.OWM_API_KEY),
-        })
-    ]
+        }),
+    ],
 };
