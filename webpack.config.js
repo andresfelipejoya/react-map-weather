@@ -49,17 +49,8 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                // Copia todo menos index.html
-                {
-                    from: 'public',
-                    to: '.',
-                    globOptions: { ignore: ['**/index.html'] }
-                },
-                // Copia index.html como 404.html para GitHub Pages
-                {
-                    from: 'public/index.html',
-                    to: '404.html'
-                },
+                { from: path.resolve(__dirname, 'public'), to: '.', globOptions: { ignore: ['**/index.html'] } },
+                { from: path.resolve(__dirname, 'public/index.html'), to: '404.html' },
             ],
         }),
         new webpack.DefinePlugin({
