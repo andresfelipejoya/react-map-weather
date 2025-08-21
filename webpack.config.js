@@ -51,8 +51,9 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: 'public/404.html', to: '404.html' } // copiamos index como 404
-            ]
+                { from: 'public', to: '.' },
+                { from: 'public/index.html', to: '404.html' }, // 👈 Copia index.html como 404.html
+            ],
         }),
         new webpack.DefinePlugin({
             'process.env.NOMINATIM_URL': JSON.stringify(process.env.NOMINATIM_URL),
