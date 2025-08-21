@@ -6,10 +6,10 @@ const webpack = require('webpack');
 module.exports = {
     entry: './src/main.tsx',
     output: {
-        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        clean: true,
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '/react-map-weather/',
+        clean: true,
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
