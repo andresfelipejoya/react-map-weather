@@ -1,15 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 require('dotenv').config();
 const webpack = require('webpack');
 
 module.exports = {
     entry: './src/main.tsx',
     output: {
-        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/react-map-weather/',
+        filename: 'bundle.js',
         clean: true,
+        publicPath: '/react-map-weather/',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -48,6 +49,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html',
         }),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'public/404.html', to: '404.html' } // copiamos index como 404
+            ]
+        }),
         new webpack.DefinePlugin({
             'process.env.NOMINATIM_URL': JSON.stringify(process.env.NOMINATIM_URL),
             'process.env.ORS_API_URL': JSON.stringify(process.env.ORS_API_URL),
@@ -55,5 +61,5 @@ module.exports = {
             'process.env.ORS_API_KEY': JSON.stringify(process.env.ORS_API_KEY),
             'process.env.OWM_API_KEY': JSON.stringify(process.env.OWM_API_KEY),
         })
-    ],
+    ]
 };
