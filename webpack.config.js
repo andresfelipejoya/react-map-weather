@@ -9,6 +9,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         clean: true,
+        publicPath: '/react-map-weather/',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -20,6 +21,7 @@ module.exports = {
         static: './public',
         hot: true,
         port: 3000,
+        historyApiFallback: true,
     },
     module: {
         rules: [

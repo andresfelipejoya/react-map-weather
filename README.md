@@ -10,7 +10,7 @@ El usuario puede seleccionar un **origen** y un **destino**, trazar una ruta ent
 - 🗺️ **Mapa interactivo con Leaflet**: permite visualizar y navegar en un mapa dinámico.  
 - 📍 **Autocompletado de lugares con Nominatim (OpenStreetMap)**: búsqueda de ubicaciones de origen y destino.  
 - 🛣️ **Rutas con OpenRouteService API**: cálculo de trayectorias entre dos puntos (origen → destino).  
-- 🌦️ **Clima en tiempo real con OpenWeather**: muestra información meteorológica actualizada en los puntos seleccionados.  
+- 🌦️ **Clima en tiempo real con Open-Meteo**: muestra información meteorológica actualizada en los puntos seleccionados.  
 - 🎨 **Estilos con TailwindCSS**: diseño moderno y responsivo.  
 - ⚙️ **Configuración con Webpack**: compilación y bundling manual para React.  
 
