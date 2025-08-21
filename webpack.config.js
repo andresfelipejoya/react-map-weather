@@ -49,7 +49,6 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: path.resolve(__dirname, 'public'), to: '.', globOptions: { ignore: ['**/index.html'] } },
                 { from: path.resolve(__dirname, 'public/index.html'), to: '404.html' },
             ],
         }),
