@@ -1,7 +1,8 @@
-import { WeatherApiResponse } from '@/domains/weather/weather.types';
+import { HourlyData, DailyData } from '@/domains/weather/weather.types';
 import { weatherCodeMap } from '../../const/weather-code-map';
 
 interface HourlyForecast {
+  place?: string;
   time: string;
   temperature?: number;
   precipitation?: number;
@@ -18,20 +19,21 @@ interface DailyGroupedForecast {
   hours: HourlyForecast[];
 }
 
-function groupForecastByDate(data: WeatherApiResponse): DailyGroupedForecast[] {
+function groupForecastByDate(data: {
+  hourly?: HourlyData;
+  daily?: DailyData;
+}): DailyGroupedForecast[] {
   const grouped: Record<string, HourlyForecast[]> = {};
   const { hourly, daily } = data;
+  const weatherDara = hourly || daily;
   const weather = hourly || daily;
 
   weather?.time.forEach((time, index) => {
     const date = time.split("T")[0];
-    const weathercode = data.hourly?.weathercode[index] || 0;
+    const weathercode = weatherDara?.weathercode[index] || 0;
     const forecast: HourlyForecast = {
       time,
-      temperature: data.hourly?.temperature_2m[index],
-      precipitation: data.hourly?.precipitation[index],
       weathercode,
-      cloudcover: data.hourly?.cloudcover[index],
       details: weatherCodeMap[weathercode],
     };
 

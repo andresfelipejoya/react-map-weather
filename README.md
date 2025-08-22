@@ -24,7 +24,7 @@ El usuario puede seleccionar un **origen** y un **destino**, trazar una ruta ent
 - [Webpack](https://webpack.js.org/)  
 - [Nominatim API](https://nominatim.openstreetmap.org/)  
 - [OpenRouteService API](https://openrouteservice.org/dev/#/api-docs/v2)  
-- [OpenWeather API](https://home.openweathermap.org/)  
+- [OpenMeteo API](https://open-meteo.com/)  
 
 ---
 

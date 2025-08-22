@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { ArrowLeftIcon, ArrowDownIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import type { RootState, AppDispatch } from '@/store';
 import { fetchSuggestions } from "@/domains/location-search/infrastructure/openstreetmap.client";
 import { calculateRoute } from "@/domains/location-search/application/services/calculateRoute.service";
@@ -20,7 +21,9 @@ export function LocationSearchInput() {
 
     const [isOpen, setIsOpen] = useState(true);
     const [originQuery, setOriginQuery] = useState('');
+    const [skipOriginFetch, setSkipOriginFetch] = useState(false);
     const [destinationQuery, setDestinationQuery] = useState('');
+    const [skipDestinationFetch, setSkipDestinationFetch] = useState(false);
     const [originSuggestions, setOriginSuggestions] = useState<any[]>([]);
     const [destinationSuggestions, setDestinationSuggestions] = useState<any[]>([]);
 
@@ -28,6 +31,10 @@ export function LocationSearchInput() {
     const destination = useSelector((state: RootState) => state.location.destination);
 
     useEffect(() => {
+        if (skipOriginFetch) {
+            setSkipOriginFetch(false);
+            return;
+        }
         const timeout = setTimeout(async () => {
             if (originQuery.length > 2) {
                 const results = await fetchSuggestions(originQuery);
@@ -40,6 +47,10 @@ export function LocationSearchInput() {
     }, [originQuery]);
 
     useEffect(() => {
+        if (skipDestinationFetch) {
+            setSkipDestinationFetch(false);
+            return;
+        }
         const timeout = setTimeout(async () => {
             if (destinationQuery.length > 2) {
                 const results = await fetchSuggestions(destinationQuery);
@@ -62,11 +73,13 @@ export function LocationSearchInput() {
             dispatch(setOriginAction(coords));
             dispatch(setNameOriginAction(place.display_name));
             setOriginSuggestions([]);
+            setSkipOriginFetch(true);
         } else {
             setDestinationQuery(place.display_name);
             dispatch(setDestinationAction(coords));
             dispatch(setNameDestinationAction(place.display_name));
             setDestinationSuggestions([]);
+            setSkipDestinationFetch(true);
         }
 
         try {
@@ -89,17 +102,9 @@ export function LocationSearchInput() {
     /**
      * Display component.
      */
-    const originIcon = (
-        <p>🟢</p>
-    );
-
-    const destinationIcon = (
-        <p>🔴</p>
-    );
-
     const isOpenIcon = (
-        <span className="text-md text-blue-500">
-            {isOpen ? '🔽' : '🔼'}
+        <span className="w-5 h-5 mb-1">
+            {isOpen ? <ArrowDownIcon /> : <ArrowLeftIcon />}
         </span>
     );
 
@@ -111,7 +116,11 @@ export function LocationSearchInput() {
             style={{ transition: 'width 0.3s linear' }}
         >
             <div className="flex flex-col gap-2 bg-white p-4 rounded-md shadow-lg">
-                <button onClick={() => setIsOpen(!isOpen)} className="cursor-pointer border-b-1 border-gray-800">
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="flex justify-center items-center cursor-pointer border-b-1 border-gray-800"
+                    aria-label="Toggle route section"
+                >
                     {isOpenIcon}
                 </button>
                 {isOpen && (
@@ -119,7 +128,8 @@ export function LocationSearchInput() {
                         <AutocompleteInput
                             placeholder="Origin"
                             query={originQuery}
-                            icon={originIcon}
+                            Icon={MapPinIcon}
+                            // iconColor='text-green-500'
                             suggestions={originSuggestions}
                             onQueryChange={setOriginQuery}
                             onSelectSuggestion={(place) => handleSelectSuggestion("origin", place)}
@@ -128,7 +138,8 @@ export function LocationSearchInput() {
                         <AutocompleteInput
                             placeholder="Destination"
                             query={destinationQuery}
-                            icon={destinationIcon}
+                            Icon={MapPinIcon}
+                            // iconColor='text-red-500'
                             suggestions={destinationSuggestions}
                             disabled={!!origin && originQuery.length === 0}
                             onQueryChange={setDestinationQuery}

@@ -19,3 +19,19 @@ export const fetchSuggestions = async (query: string): Promise<NominatimResponse
         throw new Error("Failed to fetch suggestions from OpenStreetMap");
     }
 };
+
+export const reverseGeocode = async (lat: number, lon: number): Promise<NominatimResponse> => {
+    try {
+        const res = await axios.get<NominatimResponse>(`${nominatimUrl}/reverse`, {
+            params: {
+                lat,
+                lon,
+                format: 'json',
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching suggestions:", error);
+        throw new Error("Failed to fetch suggestions from OpenStreetMap");
+    }
+};

@@ -5,7 +5,8 @@ interface Suggestion {
 interface AutocompleteInputProps {
     placeholder: string;
     query: string;
-    icon?: React.ReactNode;
+    Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    iconColor?: string;
     suggestions: Suggestion[];
     disabled?: boolean;
     onQueryChange: (value: string) => void;
@@ -15,7 +16,8 @@ interface AutocompleteInputProps {
 export default function AutocompleteInput({
     placeholder,
     query,
-    icon,
+    Icon,
+    iconColor = 'text-gray-800',
     suggestions,
     disabled,
     onQueryChange,
@@ -24,7 +26,7 @@ export default function AutocompleteInput({
     return (
         <div className="p-1 flex items-center justify-center relative">
             <span className="text-blue-500 text-sm">
-                {icon && icon}
+                {Icon && <Icon className={`w-6 h-6 ${iconColor}`} />}
             </span>
             <input
                 className={`${disabled ? 'bg-gray-100' : ''} w-full border border-gray-300 rounded-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500`}

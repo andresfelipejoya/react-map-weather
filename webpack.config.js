@@ -23,6 +23,9 @@ module.exports = {
         hot: true,
         port: 3000,
         historyApiFallback: true,
+        historyApiFallback: {
+            index: '/react-map-weather/index.html'
+        }
     },
     module: {
         rules: [
@@ -46,7 +49,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html',
-             base: '/react-map-weather/' 
+            base: '/react-map-weather/'
         }),
         new CopyWebpackPlugin({
             patterns: [

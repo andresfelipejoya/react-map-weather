@@ -9,7 +9,7 @@ export interface WeatherApiResponse {
   hourly_units?: HourlyUnits;
   daily_units?: HourlyUnits;
   hourly?: HourlyData;
-  daily?: HourlyData;
+  daily?: DailyData;
 }
 
 export interface HourlyUnits {
