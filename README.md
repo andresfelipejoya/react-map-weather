@@ -3,7 +3,8 @@
 Aplicación web construida con **React**, configurada manualmente con Webpack y sin frameworks adicionales, que combina mapas interactivos y datos climáticos en tiempo real.  
 El usuario puede seleccionar un **origen** y un **destino**, trazar una ruta entre ellos y visualizar el clima tanto en los puntos seleccionados como en la ruta.
 
----
+## 🚀 Proyectos en GitHub Pages
+- [🌦️ Weather App](https://andresfelipejoya.github.io/react-map-weather/)
 
 ## 🚀 Características
 
