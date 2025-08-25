@@ -89,7 +89,7 @@ export default function WeatherPanel({
 
     return (
         <div
-            className={`fixed flex flex-col w-full ${expanded ? "h-lvh" : "h-12"} bottom-0 right-0 p-4 rounded-t-md bg-white shadow-md z-1000 transition-[height] duration-300 ease-in-out`}
+            className={`fixed flex flex-col w-full ${expanded ? "h-dvh" : "h-12"} bottom-0 right-0 p-4 rounded-t-md bg-white shadow-md z-1000 transition-[height] duration-300 ease-in-out`}
         >
             {/* Toggle Button */}
             <button
@@ -112,7 +112,7 @@ export default function WeatherPanel({
                         </div>
                     ) : (
                         findingRouteWeather ? <LoadingSpinner />
-                            : <Badge text="Please search for your destination on the map." color="yellow" />
+                            : <Badge text="Find your origin and destination on the map." color="yellow" />
 
                     )}
                 </div>
